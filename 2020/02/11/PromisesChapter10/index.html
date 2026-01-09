@@ -36,6 +36,23 @@
 <link rel="apple-touch-icon-precomposed" href="/img/512.png">
 <meta name="theme-color" content="">
 <script>console.log("被你逮到咯...⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄....")</script>
+<style>
+  /* FIX: Enforce 16:9 Aspect Ratio on Article Thumbnails */
+  /* We target multiple potential class chains to ensure coverage */
+ .post-list.post-item.post-picture,
+ .post-list.post-item img,
+ .post-list.post-cover img {
+      width: 100%;
+      /* The modern standard for aspect ratio */
+      aspect-ratio: 16 / 9;
+      /* Ensures the image fills the box without distortion */
+      object-fit: cover!important;
+      /* Reset auto heights that might conflict */
+      height: auto!important;
+      /* Optional: Maintain theme's border radius if applicable */
+      border-radius: 4px;
+  }
+</style>
 <link href="/styles.91e7dfca63c7c151daa6.css" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><script type="application/json" is="state">{&q;api/MjAyMC8wMi8xMS9Qcm9taXNlc0NoYXB0ZXIxMA.json&q;:{&q;title&q;:&q;Promises第十章&q;,&q;date&q;:&q;2020-02-11T13:04:01.000Z&q;,&q;date_formatted&q;:{&q;ll&q;:&q;Feb 11, 2020&q;,&q;L&q;:&q;02/11/2020&q;,&q;MM-DD&q;:&q;02-11&q;},&q;thumbnail&q;:&q;&q;,&q;link&q;:&q;2020/02/11/PromisesChapter10&q;,&q;comments&q;:true,&q;tags&q;:[&q;Promises&q;,&q;翻译&q;],&q;categories&q;:[&q;翻译&q;],&q;updated&q;:&q;2020-12-14T15:10:11.494Z&q;,&q;content&q;:&q;&l;is-cipher placeholder=\&q;逆风如解意\&q;&g;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&l;/is-cipher&g;&q;,&q;prev&q;:{&q;title&q;:&q;与初与终&q;,&q;link&q;:&q;2020/02/15/与初与终&q;},&q;next&q;:{&q;title&q;:&q;Promises第九章&q;,&q;link&q;:&q;2020/02/07/PromisesChapter9&q;},&q;plink&q;:&q;http://wardzhou.art/2020/02/11/PromisesChapter10/&q;,&q;reward&q;:true,&q;copyright&q;:{&q;author&q;:&q;Birch&q;,&q;license&q;:&q;Attribution-NonCommercial-NoDerivatives 4.0 International(&l;a href=\&q;https://creativecommons.org/licenses/by-nc-nd/4.0/\&q; rel=\\\&q;external nofollow\\\&q; target=\\\&q;_blank\\\&q;&g;CC BY-NC-ND 4.0&l;/a&g;)&q;,&q;updated&q;:&q;December 14, 2020&q;},&q;reading_time&q;:&q;1602 words in 11 min&q;}}</script></head>
 <body lang="en"><!-- hexo injector body_begin start --><is-a class="φh" ng-version="12.1.0"><is-k class="φcu"><div class="φdg"><section class="φdh"><header class="φcv"><i class="φda"></i><!----><!----><img width="160" draggable="false" class="φcx φcw" src="https://wardzhou.art/img/avatar.jpeg" alt="Birch" title="Birch"><!----><a href="" class="φcz">Birch</a><p class="φcy">&gt; </p></header><div class="φdl"><a routerlink="/archives" class="φdm" href="/archives"><span>122</span><span>Archives</span></a><a class="φdm" href="/categories/Academic"><span>15</span><span>Categories</span></a><!----><a routerlink="/tags" class="φdm" href="/tags"><span>71</span><span>Tags</span></a><!----></div><!----><nav class="φdi"><a class="φdj" href="/">🏠 Home</a><!----><!----><!----><a class="φdj" href="/search">🔍 Search</a><!----><!----><!----><a class="φdj" href="/resource">🧭 Resource</a><!----><!----><!----><a class="φdj" href="/about">🌈 About</a><!----><!----><!----><!----></nav><!----><div issnippet="" class="φb"> 
  
@@ -47,6 +64,80 @@
 <link href="custom/clipboard.css" rel="stylesheet">
 </div><div issnippet="" class="φb">
 </div><!----></div><!----></article><footer class="φex"><div class="φfc"><is-l class="φdo"><a class="φdp" href="/tags/Promises">Promises</a></is-l><is-l class="φdo"><a class="φdp" href="/tags/%E7%BF%BB%E8%AF%91">翻译</a></is-l><!----></div><!----><div class="φey"><a class="φez φfb" href="/2020/02/15/%E4%B8%8E%E5%88%9D%E4%B8%8E%E7%BB%88">与初与终</a><!----><a class="φez φfa" href="/2020/02/07/PromisesChapter9">Promises第九章</a><!----></div><!----></footer><is-d class="φt"><div issnippet=""><div id="vcomment"></div> 
-</div><!----></is-d><!----><!----><!----></is-r><!----></main><!----></div></div></div><is-f class="φz"><div class="φbi"><span class="φa iκ-up"></span><span class="φa iκ-down"></span><!----><!----><span class="φa iκ-search"></span><!----></div><div class="φbb φbc"><svg class="φbh"><defs><filter id="dp"><feGaussianBlur in="SourceGraphic" stdDeviation="2"></feGaussianBlur></filter></defs><circle filter="url(#dp)" fill="rgba(0,0,0,.3)" cx="50%" cy="52%" r="44%"></circle><circle cx="50%" cy="50%" r="44%" class="φbd"></circle><circle cx="50%" cy="50%" r="48%" class="φbg" stroke-dasharray="0% 314.15926%"></circle><!----><g class="φbe"><circle r=".2rem" cx="0" cy="-.8rem"></circle><circle r=".2rem"></circle><circle r=".2rem" cx="0" cy=".8rem"></circle></g><!----></svg></div></is-f><!----><!----></is-a><!-- hexo injector body_begin end --><!-- hexo injector body_end start --><script src="/runtime.1ed960b0635ea0669f87.js"></script><script src="/polyfills.b7bf56fc45f931a8b83e.js"></script><script src="/main.543c891b4aad158701f3.js"></script><!-- hexo injector body_end end -->
+</div><!----></is-d><!----><!----><!----></is-r><!----></main><!----></div></div></div><is-f class="φz"><div class="φbi"><span class="φa iκ-up"></span><span class="φa iκ-down"></span><!----><!----><span class="φa iκ-search"></span><!----></div><div class="φbb φbc"><svg class="φbh"><defs><filter id="dp"><feGaussianBlur in="SourceGraphic" stdDeviation="2"></feGaussianBlur></filter></defs><circle filter="url(#dp)" fill="rgba(0,0,0,.3)" cx="50%" cy="52%" r="44%"></circle><circle cx="50%" cy="50%" r="44%" class="φbd"></circle><circle cx="50%" cy="50%" r="48%" class="φbg" stroke-dasharray="0% 314.15926%"></circle><!----><g class="φbe"><circle r=".2rem" cx="0" cy="-.8rem"></circle><circle r=".2rem"></circle><circle r=".2rem" cx="0" cy=".8rem"></circle></g><!----></svg></div></is-f><!----><!----></is-a><!-- hexo injector body_begin end --><!-- hexo injector body_end start --><script>
+(function() {
+  // --- FEATURE 1: SYSTEM DARK MODE SYNC ---
+  const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  
+  function syncTheme(e) {
+    const systemIsDark = e.matches;
+    // Check for 'theme-dark' class on HTML or Body (Standard Hexo Inside pattern)
+    const domIsDark = document.documentElement.classList.contains('theme-dark') ||
+                      document.body.classList.contains('theme-dark');
+    
+    // Attempt to find the theme toggle button to simulate a user action
+    // We look for common identifiers used in the theme
+    const toggleBtn = document.querySelector('.function-toggle') ||
+                      document.querySelector('.sidebar-toggle') ||
+                      document.querySelector('.navbar-toggle');
+    
+    if (systemIsDark !== domIsDark) {
+      // State mismatch detected
+      if (toggleBtn) {
+        console.log('WardZhou.art: Syncing theme via toggle button.');
+        toggleBtn.click();
+      } else {
+        // Fallback: Manually manipulate class if button is hidden/not found
+        console.log('WardZhou.art: Syncing theme via class manipulation.');
+        if (systemIsDark) {
+            document.documentElement.classList.add('theme-dark');
+            document.body.classList.add('theme-dark');
+        } else {
+            document.documentElement.classList.remove('theme-dark');
+            document.body.classList.remove('theme-dark');
+        }
+      }
+    }
+  }
+
+  // --- FEATURE 2: SIDEBAR AUTO-EXPAND ---
+  function initSidebar() {
+      // Logic: Only expand on Desktop (>1024px) to preserve Mobile UX
+      if (window.innerWidth < 1024) return;
+
+      // Session Guard: Uncomment the next line if you only want this once per session
+      // if (sessionStorage.getItem('sidebar_opened')) return;
+
+      const sidebar = document.querySelector('aside.sidebar') ||
+                      document.querySelector('.sidebar');
+      const toggle = document.querySelector('.sidebar-toggle') ||
+                     document.querySelector('.navbar-toggle');
+      
+      // Heuristic: If sidebar width is minimal, it is likely collapsed
+      const isCollapsed = sidebar && sidebar.getBoundingClientRect().width < 100;
+      
+      if (isCollapsed && toggle) {
+          console.log('WardZhou.art: Auto-expanding sidebar.');
+          toggle.click();
+          // Mark session as initialized
+          sessionStorage.setItem('sidebar_opened', 'true');
+      }
+  }
+
+  // --- ORCHESTRATION ---
+  window.addEventListener('load', () => {
+    // 1. Run Theme Sync immediately
+    syncTheme(darkModeQuery);
+    
+    // 2. Run Sidebar Logic with a slight delay to allow SPA framework (Angular) to hydrate
+    // The "Inside" theme may load content asynchronously
+    setTimeout(initSidebar, 800);
+  });
+  
+  // 3. Attach Listener for real-time OS theme changes
+  darkModeQuery.addEventListener('change', syncTheme);
+})();
+</script>
+<script src="/runtime.1ed960b0635ea0669f87.js"></script><script src="/polyfills.b7bf56fc45f931a8b83e.js"></script><script src="/main.543c891b4aad158701f3.js"></script><!-- hexo injector body_end end -->
 
 </body></html>

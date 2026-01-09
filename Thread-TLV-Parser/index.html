@@ -35,6 +35,23 @@
 <link rel="apple-touch-icon-precomposed" href="/img/512.png">
 <meta name="theme-color" content="">
 <script>console.log("被你逮到咯...⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄....")</script>
+<style>
+  /* FIX: Enforce 16:9 Aspect Ratio on Article Thumbnails */
+  /* We target multiple potential class chains to ensure coverage */
+ .post-list.post-item.post-picture,
+ .post-list.post-item img,
+ .post-list.post-cover img {
+      width: 100%;
+      /* The modern standard for aspect ratio */
+      aspect-ratio: 16 / 9;
+      /* Ensures the image fills the box without distortion */
+      object-fit: cover!important;
+      /* Reset auto heights that might conflict */
+      height: auto!important;
+      /* Optional: Maintain theme's border radius if applicable */
+      border-radius: 4px;
+  }
+</style>
 <link href="/styles.91e7dfca63c7c151daa6.css" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><script type="application/json" is="state">{&q;api/VGhyZWFkLVRMVi1QYXJzZXI.json&q;:{&q;title&q;:&q;Thread TLV Parser&q;,&q;date&q;:&q;2025-10-14T20:00:38.000Z&q;,&q;date_formatted&q;:{&q;ll&q;:&q;Oct 15, 2025&q;,&q;L&q;:&q;10/15/2025&q;,&q;MM-DD&q;:&q;10-15&q;},&q;updated&q;:&q;2025-10-14T21:16:40.578Z&q;,&q;content&q;:&q;\n&l;style&g;\n    #tlvInput {\n        font-size: 1rem;\n        min-height: 120px;\n        color: #555;\n        background-color: #fcfcfc;\n        border: 1px solid #ccc;\n        border-radius: 5px;\n        width: 100%;\n        resize: none;\n        box-sizing: border-box;\n    }\n    #parseButton {\n        width: 100%;\n        margin-top: 15px;\n        border: none;\n    }\n    #parseButton::before {\n        content: none;\n    }\n    #resultsTable {\n        word-break: break-all;\n      \tbox-sizing: border-box;\n      \twidth: 100%;\n      \ttext-align: center;\n    }\n    #resultsTable tr {\n        border-bottom: 1px solid var(--inside-accent-color-08);\n        color: black;\n    }\n    #resultsTable thead {\n        background-color: var(--inside-accent-color);\n        color: white;\n    }\n    #results .error {\n        color: #ef5350;\n        font-weight: bold;\n        text-align: center;\n        padding: 15px;\n        border: 1px solid #ef5350;\n        border-radius: 5px;\n        background-color: #ffebee;\n    }\n&l;/style&g;\n\n\n&l;div class=\&q;card\&q;&g;\n    &l;div class=\&q;card-content\&q;&g;\n        &l;p&g;Enter a Thread MeshCoP TLV hex string below to parse it into a human-readable format.&l;/p&g;\n        &l;textarea id=\&q;tlvInput\&q; class=\&q;materialize-textarea\&q; placeholder=\&q;Paste your TLV hex string here...\&q;&g;&l;/textarea&g;\n        &l;button id=\&q;parseButton\&q; class=\&q;φdp\&q;&g;\n            Parse TLV\n        &l;/button&g;\n        &l;div id=\&q;results\&q; style=\&q;margin-top: 25px;\&q;&g;&l;/div&g;\n    &l;/div&g;\n&l;/div&g;\n\n&l;script&g;\n    (function() {\n        const MESHCOP_TLV_TYPE = {\n            0: \&q;CHANNEL\&q;, 1: \&q;PANID\&q;, 2: \&q;EXTPANID\&q;, 3: \&q;NETWORKNAME\&q;, 4: \&q;PSKC\&q;,\n            5: \&q;NETWORKKEY\&q;, 6: \&q;NETWORK_KEY_SEQUENCE\&q;, 7: \&q;MESHLOCALPREFIX\&q;, 8: \&q;STEERING_DATA\&q;,\n            9: \&q;BORDER_AGENT_RLOC\&q;, 10: \&q;COMMISSIONER_ID\&q;, 11: \&q;COMM_SESSION_ID\&q;, 12: \&q;SECURITYPOLICY\&q;,\n            13: \&q;GET\&q;, 14: \&q;ACTIVETIMESTAMP\&q;, 15: \&q;COMMISSIONER_UDP_PORT\&q;, 16: \&q;STATE\&q;,\n            17: \&q;JOINER_DTLS\&q;, 18: \&q;JOINER_UDP_PORT\&q;, 19: \&q;JOINER_IID\&q;, 20: \&q;JOINER_RLOC\&q;,\n            21: \&q;JOINER_ROUTER_KEK\&q;, 32: \&q;PROVISIONING_URL\&q;, 33: \&q;VENDOR_NAME_TLV\&q;,\n            34: \&q;VENDOR_MODEL_TLV\&q;, 35: \&q;VENDOR_SW_VERSION_TLV\&q;, 36: \&q;VENDOR_DATA_TLV\&q;,\n            37: \&q;VENDOR_STACK_VERSION_TLV\&q;, 48: \&q;UDP_ENCAPSULATION_TLV\&q;, 49: \&q;IPV6_ADDRESS_TLV\&q;,\n            51: \&q;PENDINGTIMESTAMP\&q;, 52: \&q;DELAYTIMER\&q;, 53: \&q;CHANNELMASK\&q;, 54: \&q;COUNT\&q;,\n            55: \&q;PERIOD\&q;, 56: \&q;SCAN_DURATION\&q;, 57: \&q;ENERGY_LIST\&q;, 59: \&q;THREAD_DOMAIN_NAME\&q;,\n            74: \&q;WAKEUP_CHANNEL\&q;, 128: \&q;DISCOVERYREQUEST\&q;, 129: \&q;DISCOVERYRESPONSE\&q;, 241: \&q;JOINERADVERTISEMENT\&q;,\n        };\n\n        const parseButton = document.getElementById(&s;parseButton&s;);\n        const tlvInput = document.getElementById(&s;tlvInput&s;);\n        const resultsDiv = document.getElementById(&s;results&s;);\n\n        const parseTlv = () =&g; {\n            const hexString = tlvInput.value.trim().replace(/\\s+/g, &s;&s;);\n            resultsDiv.innerHTML = &s;&s;;\n\n            if (!hexString) return;\n\n            if (hexString.length % 2 !== 0 || !/^[0-9a-fA-F]*$/.test(hexString)) {\n                resultsDiv.innerHTML = &s;&l;p class=\&q;error\&q;&g;Invalid hex string. Please ensure it has an even number of characters and contains only 0-9 and A-F.&l;/p&g;&s;;\n                return;\n            }\n\n            try {\n                const data = Array.from(hexString.match(/.{1,2}/g), byte =&g; parseInt(byte, 16));\n                const parsedTlvs = [];\n                let pos = 0;\n\n                while (pos &l; data.length) {\n                    if (pos + 2 &g; data.length) throw new Error(\&q;Incomplete TLV structure.\&q;);\n                    const tag = data[pos++];\n                    const len = data[pos++];\n                    if (pos + len &g; data.length) throw new Error(\&q;Invalid length field.\&q;);\n                    \n                    const valueBytes = data.slice(pos, pos + len);\n                    pos += len;\n\n                    const typeName = MESHCOP_TLV_TYPE[tag] || \&q;UNKNOWN\&q;;\n                    let value;\n\n                    if (tag === 3) { // NETWORKNAME\n                        value = new TextDecoder().decode(Uint8Array.from(valueBytes));\n                    } else {\n                        const hexValue = &s;0x&s; + valueBytes.map(b =&g; b.toString(16).padStart(2, &s;0&s;)).join(&s;&s;);\n                        //Check for CHANNEL tag\n                        if (tag === 0 &a;&a; valueBytes.length &g; 0) {\n                            const decValue = parseInt(valueBytes.map(b =&g; b.toString(16).padStart(2, &s;0&s;)).join(&s;&s;), 16);\n                            value = `${hexValue} (${decValue})`;\n                        } else {\n                            value = hexValue;\n                        }\n                    }\n\n                    parsedTlvs.push({ tag, typeName, len, value });\n                }\n\n                if (parsedTlvs.length &g; 0) {\n                    let tableHtml = &s;&l;table id=\&q;resultsTable\&q; class=\&q;striped\&q;&g;&l;thead&g;&l;tr&g;&l;th&g;Type (dec)&l;/th&g;&l;th&g;Type (name)&l;/th&g;&l;th&g;Length&l;/th&g;&l;th&g;Value&l;/th&g;&l;/tr&g;&l;/thead&g;&l;tbody&g;&s;;\n                    parsedTlvs.forEach(tlv =&g; {\n                        tableHtml += `&l;tr&g;&l;td&g;${tlv.tag}&l;/td&g;&l;td&g;${tlv.typeName}&l;/td&g;&l;td&g;${tlv.len}&l;/td&g;&l;td&g;${tlv.value}&l;/td&g;&l;/tr&g;`;\n                    });\n                    tableHtml += &s;&l;/tbody&g;&l;/table&g;&s;;\n                    resultsDiv.innerHTML = tableHtml;\n                } else {\n                     resultsDiv.innerHTML = &s;&l;p class=\&q;error\&q;&g;No TLVs found in the provided string.&l;/p&g;&s;;\n                }\n            } catch (error) {\n                resultsDiv.innerHTML = `&l;p class=\&q;error\&q;&g;Error: ${error.message}&l;/p&g;`;\n            }\n        };\n        \n        if (parseButton) {\n            parseButton.addEventListener(&s;click&s;, parseTlv);\n        }\n    })();\n&l;/script&g;\n&q;,&q;link&q;:&q;Thread-TLV-Parser&q;,&q;comments&q;:true,&q;plink&q;:&q;http://wardzhou.art/Thread-TLV-Parser/&q;,&q;meta&q;:true}}</script></head>
 <body lang="en"><!-- hexo injector body_begin start --><is-a class="φh" ng-version="12.1.0"><is-k class="φcu"><div class="φdg"><section class="φdh"><header class="φcv"><i class="φda"></i><!----><!----><img width="160" draggable="false" class="φcx φcw" src="https://wardzhou.art/img/avatar.jpeg" alt="Birch" title="Birch"><!----><a href="" class="φcz">Birch</a><p class="φcy">&gt; </p></header><div class="φdl"><a routerlink="/archives" class="φdm" href="/archives"><span>122</span><span>Archives</span></a><a class="φdm" href="/categories/Academic"><span>15</span><span>Categories</span></a><!----><a routerlink="/tags" class="φdm" href="/tags"><span>71</span><span>Tags</span></a><!----></div><!----><nav class="φdi"><a class="φdj" href="/">🏠 Home</a><!----><!----><!----><a class="φdj" href="/search">🔍 Search</a><!----><!----><!----><a class="φdj" href="/resource">🧭 Resource</a><!----><!----><!----><a class="φdj" href="/about">🌈 About</a><!----><!----><!----><!----></nav><!----><div issnippet="" class="φb"> 
  
@@ -105,6 +122,80 @@
 <link href="custom/clipboard.css" rel="stylesheet">
 </div><div issnippet="" class="φb">
 </div><!----></div><!----></article><is-d class="φt"><div issnippet=""><div id="vcomment"></div> 
-</div><!----></is-d><!----><!----><!----></is-q><!----></main><!----></div></div></div><is-f class="φz"><div class="φbi"><span class="φa iκ-up"></span><span class="φa iκ-down"></span><!----><!----><span class="φa iκ-search"></span><!----></div><div class="φbb φbc"><svg class="φbh"><defs><filter id="dp"><feGaussianBlur in="SourceGraphic" stdDeviation="2"></feGaussianBlur></filter></defs><circle filter="url(#dp)" fill="rgba(0,0,0,.3)" cx="50%" cy="52%" r="44%"></circle><circle cx="50%" cy="50%" r="44%" class="φbd"></circle><circle cx="50%" cy="50%" r="48%" class="φbg" stroke-dasharray="0% 314.15926%"></circle><!----><g class="φbe"><circle r=".2rem" cx="0" cy="-.8rem"></circle><circle r=".2rem"></circle><circle r=".2rem" cx="0" cy=".8rem"></circle></g><!----></svg></div></is-f><!----><!----></is-a><!-- hexo injector body_begin end --><!-- hexo injector body_end start --><script src="/runtime.1ed960b0635ea0669f87.js"></script><script src="/polyfills.b7bf56fc45f931a8b83e.js"></script><script src="/main.543c891b4aad158701f3.js"></script><!-- hexo injector body_end end -->
+</div><!----></is-d><!----><!----><!----></is-q><!----></main><!----></div></div></div><is-f class="φz"><div class="φbi"><span class="φa iκ-up"></span><span class="φa iκ-down"></span><!----><!----><span class="φa iκ-search"></span><!----></div><div class="φbb φbc"><svg class="φbh"><defs><filter id="dp"><feGaussianBlur in="SourceGraphic" stdDeviation="2"></feGaussianBlur></filter></defs><circle filter="url(#dp)" fill="rgba(0,0,0,.3)" cx="50%" cy="52%" r="44%"></circle><circle cx="50%" cy="50%" r="44%" class="φbd"></circle><circle cx="50%" cy="50%" r="48%" class="φbg" stroke-dasharray="0% 314.15926%"></circle><!----><g class="φbe"><circle r=".2rem" cx="0" cy="-.8rem"></circle><circle r=".2rem"></circle><circle r=".2rem" cx="0" cy=".8rem"></circle></g><!----></svg></div></is-f><!----><!----></is-a><!-- hexo injector body_begin end --><!-- hexo injector body_end start --><script>
+(function() {
+  // --- FEATURE 1: SYSTEM DARK MODE SYNC ---
+  const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  
+  function syncTheme(e) {
+    const systemIsDark = e.matches;
+    // Check for 'theme-dark' class on HTML or Body (Standard Hexo Inside pattern)
+    const domIsDark = document.documentElement.classList.contains('theme-dark') ||
+                      document.body.classList.contains('theme-dark');
+    
+    // Attempt to find the theme toggle button to simulate a user action
+    // We look for common identifiers used in the theme
+    const toggleBtn = document.querySelector('.function-toggle') ||
+                      document.querySelector('.sidebar-toggle') ||
+                      document.querySelector('.navbar-toggle');
+    
+    if (systemIsDark !== domIsDark) {
+      // State mismatch detected
+      if (toggleBtn) {
+        console.log('WardZhou.art: Syncing theme via toggle button.');
+        toggleBtn.click();
+      } else {
+        // Fallback: Manually manipulate class if button is hidden/not found
+        console.log('WardZhou.art: Syncing theme via class manipulation.');
+        if (systemIsDark) {
+            document.documentElement.classList.add('theme-dark');
+            document.body.classList.add('theme-dark');
+        } else {
+            document.documentElement.classList.remove('theme-dark');
+            document.body.classList.remove('theme-dark');
+        }
+      }
+    }
+  }
+
+  // --- FEATURE 2: SIDEBAR AUTO-EXPAND ---
+  function initSidebar() {
+      // Logic: Only expand on Desktop (>1024px) to preserve Mobile UX
+      if (window.innerWidth < 1024) return;
+
+      // Session Guard: Uncomment the next line if you only want this once per session
+      // if (sessionStorage.getItem('sidebar_opened')) return;
+
+      const sidebar = document.querySelector('aside.sidebar') ||
+                      document.querySelector('.sidebar');
+      const toggle = document.querySelector('.sidebar-toggle') ||
+                     document.querySelector('.navbar-toggle');
+      
+      // Heuristic: If sidebar width is minimal, it is likely collapsed
+      const isCollapsed = sidebar && sidebar.getBoundingClientRect().width < 100;
+      
+      if (isCollapsed && toggle) {
+          console.log('WardZhou.art: Auto-expanding sidebar.');
+          toggle.click();
+          // Mark session as initialized
+          sessionStorage.setItem('sidebar_opened', 'true');
+      }
+  }
+
+  // --- ORCHESTRATION ---
+  window.addEventListener('load', () => {
+    // 1. Run Theme Sync immediately
+    syncTheme(darkModeQuery);
+    
+    // 2. Run Sidebar Logic with a slight delay to allow SPA framework (Angular) to hydrate
+    // The "Inside" theme may load content asynchronously
+    setTimeout(initSidebar, 800);
+  });
+  
+  // 3. Attach Listener for real-time OS theme changes
+  darkModeQuery.addEventListener('change', syncTheme);
+})();
+</script>
+<script src="/runtime.1ed960b0635ea0669f87.js"></script><script src="/polyfills.b7bf56fc45f931a8b83e.js"></script><script src="/main.543c891b4aad158701f3.js"></script><!-- hexo injector body_end end -->
 
 </body></html>

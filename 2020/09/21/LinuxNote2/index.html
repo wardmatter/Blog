@@ -36,6 +36,23 @@
 <link rel="apple-touch-icon-precomposed" href="/img/512.png">
 <meta name="theme-color" content="">
 <script>console.log("被你逮到咯...⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄....")</script>
+<style>
+  /* FIX: Enforce 16:9 Aspect Ratio on Article Thumbnails */
+  /* We target multiple potential class chains to ensure coverage */
+ .post-list.post-item.post-picture,
+ .post-list.post-item img,
+ .post-list.post-cover img {
+      width: 100%;
+      /* The modern standard for aspect ratio */
+      aspect-ratio: 16 / 9;
+      /* Ensures the image fills the box without distortion */
+      object-fit: cover!important;
+      /* Reset auto heights that might conflict */
+      height: auto!important;
+      /* Optional: Maintain theme's border radius if applicable */
+      border-radius: 4px;
+  }
+</style>
 <link href="/styles.91e7dfca63c7c151daa6.css" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><script type="application/json" is="state">{&q;api/MjAyMC8wOS8yMS9MaW51eE5vdGUy.json&q;:{&q;title&q;:&q;Linux学习笔记#2：docker安装和使用&q;,&q;date&q;:&q;2020-09-21T07:28:03.000Z&q;,&q;date_formatted&q;:{&q;ll&q;:&q;Sep 21, 2020&q;,&q;L&q;:&q;09/21/2020&q;,&q;MM-DD&q;:&q;09-21&q;},&q;author&q;:&q;Birchs&q;,&q;thumbnail&q;:&q;https://cdn.wardzhou.art/img/20200921142034.png&q;,&q;link&q;:&q;2020/09/21/LinuxNote2&q;,&q;comments&q;:true,&q;tags&q;:[&q;Docker&q;,&q;Linux&q;],&q;categories&q;:[&q;教程&q;],&q;updated&q;:&q;2020-12-14T15:10:11.493Z&q;,&q;content&q;:&q;&l;h2 id=\&q;为什么选择docker？\&q;&g;为什么选择Docker？&l;a title=\&q;#为什么选择docker？\&q; href=\&q;#为什么选择docker？\&q;&g;&l;/a&g;&l;/h2&g;\n&l;p&g;不同的平台，不同应用的依赖项错综复杂，通过docker能够提供开箱即用的体验，并且能够快捷的进行维护，迁移成本低，易用性高。&l;/p&g;\n&l;h2 id=\&q;centos-8-下的docker-安装\&q;&g;CentOS 8 下的Docker 安装&l;a title=\&q;#centos-8-下的docker-安装\&q; href=\&q;#centos-8-下的docker-安装\&q;&g;&l;/a&g;&l;/h2&g;\n&l;p&g;笔者原用的是CentOS 6的发行版本，安装docker时遇到诸多麻烦，升级内核又较为繁琐，故直接备份数据换成了较新的发行版本。&l;/p&g;\n&l;p&g;可以使用以下命令自动化安装Docker&l;/p&g;\n&l;figure class=\&q;highlight plaintext\&q;&g;&l;table&g;&l;tr&g;&l;td class=\&q;gutter\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;1&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;td class=\&q;code\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;/tr&g;&l;/table&g;&l;/figure&g;\n&l;p&g;或者使用国内&l;/p&g;\n&l;figure class=\&q;highlight plaintext\&q;&g;&l;table&g;&l;tr&g;&l;td class=\&q;gutter\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;1&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;td class=\&q;code\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;curl -sSL https://get.daocloud.io/docker | sh&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;/tr&g;&l;/table&g;&l;/figure&g;\n&l;h2 id=\&q;拉取你的第一个镜像\&q;&g;拉取你的第一个镜像&l;a title=\&q;#拉取你的第一个镜像\&q; href=\&q;#拉取你的第一个镜像\&q;&g;&l;/a&g;&l;/h2&g;\n&l;p&g;使用&l;code&g;docker pull&l;/code&g;来拉取需要的镜像&l;/p&g;\n&l;figure class=\&q;highlight plaintext\&q;&g;&l;table&g;&l;tr&g;&l;td class=\&q;gutter\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;1&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;td class=\&q;code\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;docker pull hello-world&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;/tr&g;&l;/table&g;&l;/figure&g;\n&l;p&g;在docker hub中，可以快速浏览并检索所需的docker，例如nginx等，只需要一行命令就能开箱即用。&l;/p&g;\n&l;p&g;&l;img src=\&q;https://cdn.wardzhou.art/img/20200921134709.png\&q; alt=\&q;\&q; loading=\&q;lazy\&q; class=\&q;φbp\&q;&g;&l;/p&g;\n&l;p&g;拉取成功后来验证是否成功&l;/p&g;\n&l;p&g;&l;code&g;docker image ps&l;/code&g;拉取本地的镜像列表&l;/p&g;\n&l;p&g;如果能够看到刚刚的hello-world说明你的docker已经安装好，并且能够使用啦~&l;/p&g;\n&l;h2 id=\&q;运行容器\&q;&g;运行容器&l;a title=\&q;#运行容器\&q; href=\&q;#运行容器\&q;&g;&l;/a&g;&l;/h2&g;\n&l;figure class=\&q;highlight plaintext\&q;&g;&l;table&g;&l;tr&g;&l;td class=\&q;gutter\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;1&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;td class=\&q;code\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;docker run [参数] 镜像名 [命令] [ARG...]&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;/tr&g;&l;/table&g;&l;/figure&g;\n&l;p&g;可选参数&l;/p&g;\n&l;div class=\&q;φbt\&q;&g;&l;ul&g;\n&l;li&g;&l;code&g;-a stdin&l;/code&g;: 指定标准输入输出内容类型，可选 STDIN/STDOUT/STDERR 三项；&l;/li&g;\n&l;li&g;&l;code&g;-d&l;/code&g;: 后台运行容器，并返回容器ID；&l;/li&g;\n&l;li&g;&l;code&g;-i&l;/code&g;: 以交互模式运行容器，通常与 -t 同时使用；&l;/li&g;\n&l;li&g;&l;code&g;-P&l;/code&g;: 随机端口映射，容器内部端口&l;strong&g;随机&l;/strong&g;映射到主机的端口&l;/li&g;\n&l;li&g;&l;code&g;-p&l;/code&g;: 指定端口映射，格式为：&l;strong&g;主机(宿主)端口:容器端口&l;/strong&g;&l;/li&g;\n&l;li&g;`-t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用；&l;/li&g;\n&l;li&g;&l;code&g;-name=&a;quot;nginx-lb&a;quot;&l;/code&g;: 为容器指定一个名称；&l;/li&g;\n&l;li&g;&l;code&g;--dns 8.8.8.8&l;/code&g;: 指定容器使用的DNS服务器，默认和宿主一致；&l;/li&g;\n&l;li&g;&l;code&g;--dns-search example.com&l;/code&g;: 指定容器DNS搜索域名，默认和宿主一致；&l;/li&g;\n&l;li&g;&l;code&g;-h &a;quot;mars&a;quot;&l;/code&g;: 指定容器的hostname；&l;/li&g;\n&l;li&g;&l;code&g;-e username=&a;quot;ritchie&a;quot;:&l;/code&g; 设置环境变量；&l;/li&g;\n&l;li&g;&l;code&g;--env-file=[]&l;/code&g;: 从指定文件读入环境变量；&l;/li&g;\n&l;li&g;&l;code&g;--cpuset=&a;quot;0-2&a;quot; or --cpuset=&a;quot;0,1,2&a;quot;&l;/code&g;: 绑定容器到指定CPU运行；&l;/li&g;\n&l;li&g;&l;code&g;-m &l;/code&g;:设置容器使用内存最大值；&l;/li&g;\n&l;li&g;&l;code&g;--net=&a;quot;bridge&a;quot;&l;/code&g;: 指定容器的网络连接类型，支持 bridge/host/none/container: 四种类型；&l;/li&g;\n&l;li&g;&l;code&g;--link=[]&l;/code&g;: 添加链接到另一个容器；&l;/li&g;\n&l;li&g;&l;code&g;--expose=[]&l;/code&g;: 开放一个端口或一组端口；&l;/li&g;\n&l;li&g;&l;code&g;--volume , -v&l;/code&g;: 绑定一个卷&l;/li&g;\n&l;/ul&g;\n&l;/div&g;&l;h2 id=\&q;一起来搭建一个我的世界服务器\&q;&g;一起来搭建一个我的世界服务器&l;a title=\&q;#一起来搭建一个我的世界服务器\&q; href=\&q;#一起来搭建一个我的世界服务器\&q;&g;&l;/a&g;&l;/h2&g;\n&l;p&g;拉取image&l;/p&g;\n&l;figure class=\&q;highlight plaintext\&q;&g;&l;table&g;&l;tr&g;&l;td class=\&q;gutter\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;1&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;td class=\&q;code\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;docker pull itzg/minecraft-bedrock-server&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;/tr&g;&l;/table&g;&l;/figure&g;\n&l;blockquote&g;\n&l;p&g;pull的时候可以指定版本，默认为&l;code&g;:latest&l;/code&g;&l;/p&g;\n&l;p&g;本文示例用的是基岩版服务器，另寻java版请点此(链接)[&l;a href=\&q;https://hub.docker.com/r/itzg/minecraft-server\&q; target=\&q;_blank\&q;&g;https://hub.docker.com/r/itzg/minecraft-server&l;/a&g;]&l;/p&g;\n&l;/blockquote&g;\n&l;p&g;创建并运行一个新的容器&l;/p&g;\n&l;figure class=\&q;highlight plaintext\&q;&g;&l;table&g;&l;tr&g;&l;td class=\&q;gutter\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;1&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;td class=\&q;code\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;docker run --name mc -d -it -e EULA=TRUE -p 19132:19132/udp -p 19132:19132 itzg/minecraft-bedrock-server&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;/tr&g;&l;/table&g;&l;/figure&g;\n&l;p&g;稍等片刻查看运行日志，如果显示运行成功，就可以通过游戏客户端访问服务器了&l;/p&g;\n&l;figure class=\&q;highlight plaintext\&q;&g;&l;table&g;&l;tr&g;&l;td class=\&q;gutter\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;1&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;td class=\&q;code\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;docker logs mc&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;/tr&g;&l;/table&g;&l;/figure&g;\n&l;blockquote&g;\n&l;p&g;未完待续…&l;/p&g;\n&l;/blockquote&g;\n&q;,&q;prev&q;:{&q;title&q;:&q;喵~ Meow~&q;,&q;link&q;:&q;2020/09/26/meow&q;},&q;next&q;:{&q;title&q;:&q;Linux学习笔记#1：复制文件cp、docker cp与scp&q;,&q;link&q;:&q;2020/09/20/LinuxNote1&q;},&q;plink&q;:&q;http://wardzhou.art/2020/09/21/LinuxNote2/&q;,&q;toc&q;:[{&q;id&q;:&q;为什么选择docker？&q;,&q;title&q;:&q;为什么选择Docker？&q;,&q;index&q;:&q;1&q;},{&q;id&q;:&q;centos-8-下的docker-安装&q;,&q;title&q;:&q;CentOS 8 下的Docker 安装&q;,&q;index&q;:&q;2&q;},{&q;id&q;:&q;拉取你的第一个镜像&q;,&q;title&q;:&q;拉取你的第一个镜像&q;,&q;index&q;:&q;3&q;},{&q;id&q;:&q;运行容器&q;,&q;title&q;:&q;运行容器&q;,&q;index&q;:&q;4&q;},{&q;id&q;:&q;一起来搭建一个我的世界服务器&q;,&q;title&q;:&q;一起来搭建一个我的世界服务器&q;,&q;index&q;:&q;5&q;}],&q;reward&q;:true,&q;copyright&q;:{&q;author&q;:&q;Birchs&q;,&q;license&q;:&q;Attribution-NonCommercial-NoDerivatives 4.0 International(&l;a href=\&q;https://creativecommons.org/licenses/by-nc-nd/4.0/\&q; rel=\\\&q;external nofollow\\\&q; target=\\\&q;_blank\\\&q;&g;CC BY-NC-ND 4.0&l;/a&g;)&q;,&q;updated&q;:&q;December 14, 2020&q;},&q;reading_time&q;:&q;720 words in 5 min&q;}}</script></head>
 <body lang="en"><!-- hexo injector body_begin start --><is-a class="φh" ng-version="12.1.0"><is-k class="φcu"><div class="φdg"><section class="φdh"><header class="φcv"><i class="φda"></i><!----><!----><img width="160" draggable="false" class="φcx φcw" src="https://wardzhou.art/img/avatar.jpeg" alt="Birch" title="Birch"><!----><a href="" class="φcz">Birch</a><p class="φcy">&gt; </p></header><div class="φdl"><a routerlink="/archives" class="φdm" href="/archives"><span>122</span><span>Archives</span></a><a class="φdm" href="/categories/Academic"><span>15</span><span>Categories</span></a><!----><a routerlink="/tags" class="φdm" href="/tags"><span>71</span><span>Tags</span></a><!----></div><!----><nav class="φdi"><a class="φdj" href="/">🏠 Home</a><!----><!----><!----><a class="φdj" href="/search">🔍 Search</a><!----><!----><!----><a class="φdj" href="/resource">🧭 Resource</a><!----><!----><!----><a class="φdj" href="/about">🌈 About</a><!----><!----><!----><!----></nav><!----><div issnippet="" class="φb"> 
  
@@ -100,6 +117,80 @@
 <link href="custom/clipboard.css" rel="stylesheet">
 </div><div issnippet="" class="φb">
 </div><!----></div><!----></article><footer class="φex"><div class="φfc"><is-l class="φdo"><a class="φdp" href="/tags/Docker">Docker</a></is-l><is-l class="φdo"><a class="φdp" href="/tags/Linux">Linux</a></is-l><!----></div><!----><div class="φey"><a class="φez φfb" href="/2020/09/26/meow">喵~ Meow~</a><!----><a class="φez φfa" href="/2020/09/20/LinuxNote1">Linux学习笔记#1：复制文件cp、docker cp与scp</a><!----></div><!----></footer><is-d class="φt"><div issnippet=""><div id="vcomment"></div> 
-</div><!----></is-d><!----><!----><!----></is-r><!----></main><!----></div></div></div><is-f class="φz"><div class="φbi"><span class="φa iκ-up"></span><span class="φa iκ-down"></span><!----><span class="φa iκ-toc"></span><!----><span class="φa iκ-search"></span><!----></div><div class="φbb φbc"><svg class="φbh"><defs><filter id="dp"><feGaussianBlur in="SourceGraphic" stdDeviation="2"></feGaussianBlur></filter></defs><circle filter="url(#dp)" fill="rgba(0,0,0,.3)" cx="50%" cy="52%" r="44%"></circle><circle cx="50%" cy="50%" r="44%" class="φbd"></circle><circle cx="50%" cy="50%" r="48%" class="φbg" stroke-dasharray="0% 314.15926%"></circle><!----><g class="φbe"><circle r=".2rem" cx="0" cy="-.8rem"></circle><circle r=".2rem"></circle><circle r=".2rem" cx="0" cy=".8rem"></circle></g><!----></svg></div></is-f><is-m class="φdq"><div class="φds φdt"><a class="φdv"><span class="φdx">1 </span><!----><span class="φdy">为什么选择Docker？</span></a><!----></div><div class="φds φdt"><a class="φdv"><span class="φdx">2 </span><!----><span class="φdy">CentOS 8 下的Docker 安装</span></a><!----></div><div class="φds φdt"><a class="φdv"><span class="φdx">3 </span><!----><span class="φdy">拉取你的第一个镜像</span></a><!----></div><div class="φds φdt"><a class="φdv"><span class="φdx">4 </span><!----><span class="φdy">运行容器</span></a><!----></div><div class="φds φdt"><a class="φdv"><span class="φdx">5 </span><!----><span class="φdy">一起来搭建一个我的世界服务器</span></a><!----></div><!----></is-m><!----><!----></is-a><!-- hexo injector body_begin end --><!-- hexo injector body_end start --><script src="/runtime.1ed960b0635ea0669f87.js"></script><script src="/polyfills.b7bf56fc45f931a8b83e.js"></script><script src="/main.543c891b4aad158701f3.js"></script><!-- hexo injector body_end end -->
+</div><!----></is-d><!----><!----><!----></is-r><!----></main><!----></div></div></div><is-f class="φz"><div class="φbi"><span class="φa iκ-up"></span><span class="φa iκ-down"></span><!----><span class="φa iκ-toc"></span><!----><span class="φa iκ-search"></span><!----></div><div class="φbb φbc"><svg class="φbh"><defs><filter id="dp"><feGaussianBlur in="SourceGraphic" stdDeviation="2"></feGaussianBlur></filter></defs><circle filter="url(#dp)" fill="rgba(0,0,0,.3)" cx="50%" cy="52%" r="44%"></circle><circle cx="50%" cy="50%" r="44%" class="φbd"></circle><circle cx="50%" cy="50%" r="48%" class="φbg" stroke-dasharray="0% 314.15926%"></circle><!----><g class="φbe"><circle r=".2rem" cx="0" cy="-.8rem"></circle><circle r=".2rem"></circle><circle r=".2rem" cx="0" cy=".8rem"></circle></g><!----></svg></div></is-f><is-m class="φdq"><div class="φds φdt"><a class="φdv"><span class="φdx">1 </span><!----><span class="φdy">为什么选择Docker？</span></a><!----></div><div class="φds φdt"><a class="φdv"><span class="φdx">2 </span><!----><span class="φdy">CentOS 8 下的Docker 安装</span></a><!----></div><div class="φds φdt"><a class="φdv"><span class="φdx">3 </span><!----><span class="φdy">拉取你的第一个镜像</span></a><!----></div><div class="φds φdt"><a class="φdv"><span class="φdx">4 </span><!----><span class="φdy">运行容器</span></a><!----></div><div class="φds φdt"><a class="φdv"><span class="φdx">5 </span><!----><span class="φdy">一起来搭建一个我的世界服务器</span></a><!----></div><!----></is-m><!----><!----></is-a><!-- hexo injector body_begin end --><!-- hexo injector body_end start --><script>
+(function() {
+  // --- FEATURE 1: SYSTEM DARK MODE SYNC ---
+  const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  
+  function syncTheme(e) {
+    const systemIsDark = e.matches;
+    // Check for 'theme-dark' class on HTML or Body (Standard Hexo Inside pattern)
+    const domIsDark = document.documentElement.classList.contains('theme-dark') ||
+                      document.body.classList.contains('theme-dark');
+    
+    // Attempt to find the theme toggle button to simulate a user action
+    // We look for common identifiers used in the theme
+    const toggleBtn = document.querySelector('.function-toggle') ||
+                      document.querySelector('.sidebar-toggle') ||
+                      document.querySelector('.navbar-toggle');
+    
+    if (systemIsDark !== domIsDark) {
+      // State mismatch detected
+      if (toggleBtn) {
+        console.log('WardZhou.art: Syncing theme via toggle button.');
+        toggleBtn.click();
+      } else {
+        // Fallback: Manually manipulate class if button is hidden/not found
+        console.log('WardZhou.art: Syncing theme via class manipulation.');
+        if (systemIsDark) {
+            document.documentElement.classList.add('theme-dark');
+            document.body.classList.add('theme-dark');
+        } else {
+            document.documentElement.classList.remove('theme-dark');
+            document.body.classList.remove('theme-dark');
+        }
+      }
+    }
+  }
+
+  // --- FEATURE 2: SIDEBAR AUTO-EXPAND ---
+  function initSidebar() {
+      // Logic: Only expand on Desktop (>1024px) to preserve Mobile UX
+      if (window.innerWidth < 1024) return;
+
+      // Session Guard: Uncomment the next line if you only want this once per session
+      // if (sessionStorage.getItem('sidebar_opened')) return;
+
+      const sidebar = document.querySelector('aside.sidebar') ||
+                      document.querySelector('.sidebar');
+      const toggle = document.querySelector('.sidebar-toggle') ||
+                     document.querySelector('.navbar-toggle');
+      
+      // Heuristic: If sidebar width is minimal, it is likely collapsed
+      const isCollapsed = sidebar && sidebar.getBoundingClientRect().width < 100;
+      
+      if (isCollapsed && toggle) {
+          console.log('WardZhou.art: Auto-expanding sidebar.');
+          toggle.click();
+          // Mark session as initialized
+          sessionStorage.setItem('sidebar_opened', 'true');
+      }
+  }
+
+  // --- ORCHESTRATION ---
+  window.addEventListener('load', () => {
+    // 1. Run Theme Sync immediately
+    syncTheme(darkModeQuery);
+    
+    // 2. Run Sidebar Logic with a slight delay to allow SPA framework (Angular) to hydrate
+    // The "Inside" theme may load content asynchronously
+    setTimeout(initSidebar, 800);
+  });
+  
+  // 3. Attach Listener for real-time OS theme changes
+  darkModeQuery.addEventListener('change', syncTheme);
+})();
+</script>
+<script src="/runtime.1ed960b0635ea0669f87.js"></script><script src="/polyfills.b7bf56fc45f931a8b83e.js"></script><script src="/main.543c891b4aad158701f3.js"></script><!-- hexo injector body_end end -->
 
 </body></html>

@@ -36,6 +36,23 @@
 <link rel="apple-touch-icon-precomposed" href="/img/512.png">
 <meta name="theme-color" content="">
 <script>console.log("被你逮到咯...⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄....")</script>
+<style>
+  /* FIX: Enforce 16:9 Aspect Ratio on Article Thumbnails */
+  /* We target multiple potential class chains to ensure coverage */
+ .post-list.post-item.post-picture,
+ .post-list.post-item img,
+ .post-list.post-cover img {
+      width: 100%;
+      /* The modern standard for aspect ratio */
+      aspect-ratio: 16 / 9;
+      /* Ensures the image fills the box without distortion */
+      object-fit: cover!important;
+      /* Reset auto heights that might conflict */
+      height: auto!important;
+      /* Optional: Maintain theme's border radius if applicable */
+      border-radius: 4px;
+  }
+</style>
 <link href="/styles.91e7dfca63c7c151daa6.css" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><script type="application/json" is="state">{&q;api/MjAyMC8wMi8xOS9Qcm9taXNlc0NoYXB0ZXIxMg.json&q;:{&q;title&q;:&q;Promises第十二章&q;,&q;date&q;:&q;2020-02-19T11:53:44.000Z&q;,&q;date_formatted&q;:{&q;ll&q;:&q;Feb 19, 2020&q;,&q;L&q;:&q;02/19/2020&q;,&q;MM-DD&q;:&q;02-19&q;},&q;thumbnail&q;:&q;&q;,&q;link&q;:&q;2020/02/19/PromisesChapter12&q;,&q;comments&q;:true,&q;tags&q;:[&q;Promises&q;,&q;翻译&q;],&q;categories&q;:[&q;翻译&q;],&q;updated&q;:&q;2020-12-14T15:10:11.494Z&q;,&q;content&q;:&q;&l;is-cipher placeholder=\&q;逆风如解意\&q;&g;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&l;/is-cipher&g;&q;,&q;prev&q;:{&q;title&q;:&q;Promises第十三章&q;,&q;link&q;:&q;2020/02/20/PromisesChapter13&q;},&q;next&q;:{&q;title&q;:&q;Promises第十一章&q;,&q;link&q;:&q;2020/02/19/PromisesChapter11&q;},&q;plink&q;:&q;http://wardzhou.art/2020/02/19/PromisesChapter12/&q;,&q;reward&q;:true,&q;copyright&q;:{&q;author&q;:&q;Birch&q;,&q;license&q;:&q;Attribution-NonCommercial-NoDerivatives 4.0 International(&l;a href=\&q;https://creativecommons.org/licenses/by-nc-nd/4.0/\&q; rel=\\\&q;external nofollow\\\&q; target=\\\&q;_blank\\\&q;&g;CC BY-NC-ND 4.0&l;/a&g;)&q;,&q;updated&q;:&q;December 14, 2020&q;},&q;reading_time&q;:&q;960 words in 6 min&q;}}</script></head>
 <body lang="en"><!-- hexo injector body_begin start --><is-a class="φh" ng-version="12.1.0"><is-k class="φcu"><div class="φdg"><section class="φdh"><header class="φcv"><i class="φda"></i><!----><!----><img width="160" draggable="false" class="φcx φcw" src="https://wardzhou.art/img/avatar.jpeg" alt="Birch" title="Birch"><!----><a href="" class="φcz">Birch</a><p class="φcy">&gt; </p></header><div class="φdl"><a routerlink="/archives" class="φdm" href="/archives"><span>122</span><span>Archives</span></a><a class="φdm" href="/categories/Academic"><span>15</span><span>Categories</span></a><!----><a routerlink="/tags" class="φdm" href="/tags"><span>71</span><span>Tags</span></a><!----></div><!----><nav class="φdi"><a class="φdj" href="/">🏠 Home</a><!----><!----><!----><a class="φdj" href="/search">🔍 Search</a><!----><!----><!----><a class="φdj" href="/resource">🧭 Resource</a><!----><!----><!----><a class="φdj" href="/about">🌈 About</a><!----><!----><!----><!----></nav><!----><div issnippet="" class="φb"> 
  
@@ -47,6 +64,80 @@
 <link href="custom/clipboard.css" rel="stylesheet">
 </div><div issnippet="" class="φb">
 </div><!----></div><!----></article><footer class="φex"><div class="φfc"><is-l class="φdo"><a class="φdp" href="/tags/Promises">Promises</a></is-l><is-l class="φdo"><a class="φdp" href="/tags/%E7%BF%BB%E8%AF%91">翻译</a></is-l><!----></div><!----><div class="φey"><a class="φez φfb" href="/2020/02/20/PromisesChapter13">Promises第十三章</a><!----><a class="φez φfa" href="/2020/02/19/PromisesChapter11">Promises第十一章</a><!----></div><!----></footer><is-d class="φt"><div issnippet=""><div id="vcomment"></div> 
-</div><!----></is-d><!----><!----><!----></is-r><!----></main><!----></div></div></div><is-f class="φz"><div class="φbi"><span class="φa iκ-up"></span><span class="φa iκ-down"></span><!----><!----><span class="φa iκ-search"></span><!----></div><div class="φbb φbc"><svg class="φbh"><defs><filter id="dp"><feGaussianBlur in="SourceGraphic" stdDeviation="2"></feGaussianBlur></filter></defs><circle filter="url(#dp)" fill="rgba(0,0,0,.3)" cx="50%" cy="52%" r="44%"></circle><circle cx="50%" cy="50%" r="44%" class="φbd"></circle><circle cx="50%" cy="50%" r="48%" class="φbg" stroke-dasharray="0% 314.15926%"></circle><!----><g class="φbe"><circle r=".2rem" cx="0" cy="-.8rem"></circle><circle r=".2rem"></circle><circle r=".2rem" cx="0" cy=".8rem"></circle></g><!----></svg></div></is-f><!----><!----></is-a><!-- hexo injector body_begin end --><!-- hexo injector body_end start --><script src="/runtime.1ed960b0635ea0669f87.js"></script><script src="/polyfills.b7bf56fc45f931a8b83e.js"></script><script src="/main.543c891b4aad158701f3.js"></script><!-- hexo injector body_end end -->
+</div><!----></is-d><!----><!----><!----></is-r><!----></main><!----></div></div></div><is-f class="φz"><div class="φbi"><span class="φa iκ-up"></span><span class="φa iκ-down"></span><!----><!----><span class="φa iκ-search"></span><!----></div><div class="φbb φbc"><svg class="φbh"><defs><filter id="dp"><feGaussianBlur in="SourceGraphic" stdDeviation="2"></feGaussianBlur></filter></defs><circle filter="url(#dp)" fill="rgba(0,0,0,.3)" cx="50%" cy="52%" r="44%"></circle><circle cx="50%" cy="50%" r="44%" class="φbd"></circle><circle cx="50%" cy="50%" r="48%" class="φbg" stroke-dasharray="0% 314.15926%"></circle><!----><g class="φbe"><circle r=".2rem" cx="0" cy="-.8rem"></circle><circle r=".2rem"></circle><circle r=".2rem" cx="0" cy=".8rem"></circle></g><!----></svg></div></is-f><!----><!----></is-a><!-- hexo injector body_begin end --><!-- hexo injector body_end start --><script>
+(function() {
+  // --- FEATURE 1: SYSTEM DARK MODE SYNC ---
+  const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  
+  function syncTheme(e) {
+    const systemIsDark = e.matches;
+    // Check for 'theme-dark' class on HTML or Body (Standard Hexo Inside pattern)
+    const domIsDark = document.documentElement.classList.contains('theme-dark') ||
+                      document.body.classList.contains('theme-dark');
+    
+    // Attempt to find the theme toggle button to simulate a user action
+    // We look for common identifiers used in the theme
+    const toggleBtn = document.querySelector('.function-toggle') ||
+                      document.querySelector('.sidebar-toggle') ||
+                      document.querySelector('.navbar-toggle');
+    
+    if (systemIsDark !== domIsDark) {
+      // State mismatch detected
+      if (toggleBtn) {
+        console.log('WardZhou.art: Syncing theme via toggle button.');
+        toggleBtn.click();
+      } else {
+        // Fallback: Manually manipulate class if button is hidden/not found
+        console.log('WardZhou.art: Syncing theme via class manipulation.');
+        if (systemIsDark) {
+            document.documentElement.classList.add('theme-dark');
+            document.body.classList.add('theme-dark');
+        } else {
+            document.documentElement.classList.remove('theme-dark');
+            document.body.classList.remove('theme-dark');
+        }
+      }
+    }
+  }
+
+  // --- FEATURE 2: SIDEBAR AUTO-EXPAND ---
+  function initSidebar() {
+      // Logic: Only expand on Desktop (>1024px) to preserve Mobile UX
+      if (window.innerWidth < 1024) return;
+
+      // Session Guard: Uncomment the next line if you only want this once per session
+      // if (sessionStorage.getItem('sidebar_opened')) return;
+
+      const sidebar = document.querySelector('aside.sidebar') ||
+                      document.querySelector('.sidebar');
+      const toggle = document.querySelector('.sidebar-toggle') ||
+                     document.querySelector('.navbar-toggle');
+      
+      // Heuristic: If sidebar width is minimal, it is likely collapsed
+      const isCollapsed = sidebar && sidebar.getBoundingClientRect().width < 100;
+      
+      if (isCollapsed && toggle) {
+          console.log('WardZhou.art: Auto-expanding sidebar.');
+          toggle.click();
+          // Mark session as initialized
+          sessionStorage.setItem('sidebar_opened', 'true');
+      }
+  }
+
+  // --- ORCHESTRATION ---
+  window.addEventListener('load', () => {
+    // 1. Run Theme Sync immediately
+    syncTheme(darkModeQuery);
+    
+    // 2. Run Sidebar Logic with a slight delay to allow SPA framework (Angular) to hydrate
+    // The "Inside" theme may load content asynchronously
+    setTimeout(initSidebar, 800);
+  });
+  
+  // 3. Attach Listener for real-time OS theme changes
+  darkModeQuery.addEventListener('change', syncTheme);
+})();
+</script>
+<script src="/runtime.1ed960b0635ea0669f87.js"></script><script src="/polyfills.b7bf56fc45f931a8b83e.js"></script><script src="/main.543c891b4aad158701f3.js"></script><!-- hexo injector body_end end -->
 
 </body></html>
