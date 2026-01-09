@@ -36,24 +36,8 @@
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="apple-touch-icon-precomposed" href="/img/512.png">
 <meta name="theme-color" content="">
+<style>img.φbm { aspect-ratio: 16/9; object-fit: cover; width: 100%; }</style>
 <script>console.log("被你逮到咯...⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄....")</script>
-<style>
-  /* FIX: Enforce 16:9 Aspect Ratio on Article Thumbnails */
-  /* We target multiple potential class chains to ensure coverage */
- .post-list.post-item.post-picture,
- .post-list.post-item img,
- .post-list.post-cover img {
-      width: 100%;
-      /* The modern standard for aspect ratio */
-      aspect-ratio: 16 / 9;
-      /* Ensures the image fills the box without distortion */
-      object-fit: cover!important;
-      /* Reset auto heights that might conflict */
-      height: auto!important;
-      /* Optional: Maintain theme's border radius if applicable */
-      border-radius: 4px;
-  }
-</style>
 <link href="/styles.91e7dfca63c7c151daa6.css" rel="stylesheet"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><script type="application/json" is="state">{&q;api/MjAxOS8xMi8zMC/ov4Hnp7vmlrDniYjmnKznmoTlnZE.json&q;:{&q;title&q;:&q;Hexo迁移新版本的坑&q;,&q;date&q;:&q;2019-12-29T23:28:03.000Z&q;,&q;date_formatted&q;:{&q;ll&q;:&q;Dec 30, 2019&q;,&q;L&q;:&q;12/30/2019&q;,&q;MM-DD&q;:&q;12-30&q;},&q;thumbnail&q;:&q;https://i.loli.net/2019/12/30/XmIsFGcvLzAN5uo.png&q;,&q;link&q;:&q;2019/12/30/迁移新版本的坑&q;,&q;comments&q;:true,&q;tags&q;:[&q;Hexo&q;,&q;升级&q;,&q;博客&q;],&q;categories&q;:[&q;教程&q;],&q;updated&q;:&q;2020-12-14T15:10:11.499Z&q;,&q;content&q;:&q;&l;p&g;Hexo+Theme Inside主题建站两个月了，前几天发现hexo已经更新到4.2，想着更新一下，今天就来分享下笔者在迁移到新版本时遇到的问题。&l;/p&g;\n&l;h1 id=\&q;准备工作\&q;&g;准备工作&l;a title=\&q;#准备工作\&q; href=\&q;#准备工作\&q;&g;&l;/a&g;&l;/h1&g;\n&l;ol&g;\n&l;li&g;首先把原目录下所有文件备份，随后清空该文件夹。&l;/li&g;\n&l;/ol&g;\n&l;h1 id=\&q;更新hexo\&q;&g;更新Hexo&l;a title=\&q;#更新hexo\&q; href=\&q;#更新hexo\&q;&g;&l;/a&g;&l;/h1&g;\n&l;ol start=\&q;2\&q;&g;\n&l;li&g;打开Powershell输入如下命令全局更新hexo&l;/li&g;\n&l;/ol&g;\n&l;figure class=\&q;highlight sh\&q;&g;&l;table&g;&l;tr&g;&l;td class=\&q;gutter\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;1&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;td class=\&q;code\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;$ npm install hexo-cli -g&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;/tr&g;&l;/table&g;&l;/figure&g;\n&l;ol start=\&q;3\&q;&g;\n&l;li&g;回到原博客文件夹的上级目录&l;/li&g;\n&l;/ol&g;\n&l;figure class=\&q;highlight sh\&q;&g;&l;table&g;&l;tr&g;&l;td class=\&q;gutter\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;1&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;td class=\&q;code\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;&l;span class=\&q;built_in\&q;&g;cd&l;/span&g; 上级目录的地址&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;/tr&g;&l;/table&g;&l;/figure&g;\n&l;ol start=\&q;4\&q;&g;\n&l;li&g;初始化目录（注意blog替换成你原来文件夹的名字）&l;/li&g;\n&l;/ol&g;\n&l;figure class=\&q;highlight sh\&q;&g;&l;table&g;&l;tr&g;&l;td class=\&q;gutter\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;1&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;td class=\&q;code\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;hexo init blog&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;/tr&g;&l;/table&g;&l;/figure&g;\n&l;ol start=\&q;5\&q;&g;\n&l;li&g;进入文件夹，查看版本&l;/li&g;\n&l;/ol&g;\n&l;figure class=\&q;highlight sh\&q;&g;&l;table&g;&l;tr&g;&l;td class=\&q;gutter\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;1&l;/span&g;&l;br&g;&l;span class=\&q;line\&q;&g;2&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;td class=\&q;code\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;&l;span class=\&q;built_in\&q;&g;cd&l;/span&g; blog&l;/span&g;&l;br&g;&l;span class=\&q;line\&q;&g;hexo version&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;/tr&g;&l;/table&g;&l;/figure&g;\n&l;p&g;&l;img src=\&q;https://i.loli.net/2019/12/30/wK253Tsv7bRhSaE.png\&q; alt=\&q;image.png\&q; loading=\&q;lazy\&q; class=\&q;φbp\&q;&g;&l;/p&g;\n&l;p&g;版本更新到4.2 (&l;em&g;^▽^&l;/em&g;)&l;/p&g;\n&l;blockquote&g;\n&l;p&g;我这里显示错误&l;br&g;\n&l;img src=\&q;https://i.loli.net/2019/12/30/wGp4NFiHQga2Eh3.png\&q; alt=\&q;image.png\&q; loading=\&q;lazy\&q;&g;&l;br&g;\n解决方案 输入&l;/p&g;\n&l;/blockquote&g;\n&l;figure class=\&q;highlight sh\&q;&g;&l;table&g;&l;tr&g;&l;td class=\&q;gutter\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;1&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;td class=\&q;code\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;set-executionpolicy remotesigned&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;/tr&g;&l;/table&g;&l;/figure&g;\n&l;h1 id=\&q;迁移文件\&q;&g;迁移文件&l;a title=\&q;#迁移文件\&q; href=\&q;#迁移文件\&q;&g;&l;/a&g;&l;/h1&g;\n&l;ol start=\&q;6\&q;&g;\n&l;li&g;\n&l;p&g;复制备份好的文件夹中source到更新后的文件夹中&l;/p&g;\n&l;/li&g;\n&l;li&g;\n&l;p&g;根据原来的_config.yml配置新版本的_config.yml（偷懒直接覆盖可能会出错哦）&l;/p&g;\n&l;/li&g;\n&l;li&g;\n&l;p&g;复制主题文件夹到更新后的文件夹中&l;/p&g;\n&l;/li&g;\n&l;li&g;\n&l;p&g;生成静态文件并预览&l;/p&g;\n&l;/li&g;\n&l;/ol&g;\n&l;figure class=\&q;highlight sh\&q;&g;&l;table&g;&l;tr&g;&l;td class=\&q;gutter\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;1&l;/span&g;&l;br&g;&l;span class=\&q;line\&q;&g;2&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;td class=\&q;code\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;hexo g&l;/span&g;&l;br&g;&l;span class=\&q;line\&q;&g;hexo s&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;/tr&g;&l;/table&g;&l;/figure&g;\n&l;blockquote&g;\n&l;p&g;嘤嘤嘤又出错(╥╯^╰╥)&l;br&g;\n打开是空白啥子情况哦&l;br&g;\n清除一下重新生成？&l;/p&g;\n&l;/blockquote&g;\n&l;figure class=\&q;highlight sh\&q;&g;&l;table&g;&l;tr&g;&l;td class=\&q;gutter\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;1&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;td class=\&q;code\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;hexo clean&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;/tr&g;&l;/table&g;&l;/figure&g;\n&l;blockquote&g;\n&l;p&g;找到你这个小婊砸了！&l;br&g;\n&l;img src=\&q;https://i.loli.net/2019/12/30/RUyYhd6iPoLa3W1.png\&q; alt=\&q;image.png\&q; loading=\&q;lazy\&q;&g;&l;br&g;\n解决方案 安装cheerio&l;/p&g;\n&l;/blockquote&g;\n&l;figure class=\&q;highlight sh\&q;&g;&l;table&g;&l;tr&g;&l;td class=\&q;gutter\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;1&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;td class=\&q;code\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;npm install cheerio&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;/tr&g;&l;/table&g;&l;/figure&g;\n&l;p&g;安装完成后重新生成静态文件能正常显示啦233333~&l;/p&g;\n&l;h1 id=\&q;部署\&q;&g;部署&l;a title=\&q;#部署\&q; href=\&q;#部署\&q;&g;&l;/a&g;&l;/h1&g;\n&l;ol start=\&q;10\&q;&g;\n&l;li&g;部署静态文件&l;/li&g;\n&l;/ol&g;\n&l;figure class=\&q;highlight sh\&q;&g;&l;table&g;&l;tr&g;&l;td class=\&q;gutter\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;1&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;td class=\&q;code\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;hexo d&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;/tr&g;&l;/table&g;&l;/figure&g;\n&l;blockquote&g;\n&l;p&g;他又出错了…&l;br&g;\n让我康康是怎么回事？&l;br&g;\n&l;img src=\&q;https://i.loli.net/2019/12/30/em8uzvZOGhLKcgt.png\&q; alt=\&q;image.png\&q; loading=\&q;lazy\&q;&g;&l;/p&g;\n&l;/blockquote&g;\n&l;p&g;&l;strong&g;夺 命 二 连&l;/strong&g;&l;br&g;\n不懂就问，百度之后尝试重新安装这个组件&l;/p&g;\n&l;figure class=\&q;highlight sh\&q;&g;&l;table&g;&l;tr&g;&l;td class=\&q;gutter\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;1&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;td class=\&q;code\&q;&g;&l;pre&g;&l;span class=\&q;line\&q;&g;npm install hexo-deployer-git --save&l;/span&g;&l;br&g;&l;/pre&g;&l;/td&g;&l;/tr&g;&l;/table&g;&l;/figure&g;\n&l;p&g;安装完成后重新部署，一切正常咯，嘿嘿😁&l;/p&g;\n&l;p&g;11.合影留念&l;/p&g;\n&l;p&g;&l;img src=\&q;https://i.loli.net/2019/12/30/7M6euWPiyg94sTd.png\&q; alt=\&q;image.png\&q; loading=\&q;lazy\&q; class=\&q;φbp\&q;&g;&l;/p&g;\n&l;h1 id=\&q;写在最后\&q;&g;写在最后&l;a title=\&q;#写在最后\&q; href=\&q;#写在最后\&q;&g;&l;/a&g;&l;/h1&g;\n&l;p&g;遇到问题不懂就问~&l;br&g;\n百度必应谷歌总有答案&l;br&g;\n数据一定要备份！一定要备份！要备份！&l;br&g;\n希望这篇文章能够帮到你~&l;/p&g;\n&q;,&q;prev&q;:{&q;title&q;:&q;Promises第一章&q;,&q;link&q;:&q;2020/01/06/PromisesChapter1&q;},&q;next&q;:{&q;title&q;:&q;小世界的管理者&q;,&q;link&q;:&q;2019/12/30/小世界的管理者&q;},&q;plink&q;:&q;http://wardzhou.art/2019/12/30/迁移新版本的坑/&q;,&q;toc&q;:[{&q;id&q;:&q;准备工作&q;,&q;title&q;:&q;准备工作&q;,&q;index&q;:&q;1&q;},{&q;id&q;:&q;更新hexo&q;,&q;title&q;:&q;更新Hexo&q;,&q;index&q;:&q;2&q;},{&q;id&q;:&q;迁移文件&q;,&q;title&q;:&q;迁移文件&q;,&q;index&q;:&q;3&q;},{&q;id&q;:&q;部署&q;,&q;title&q;:&q;部署&q;,&q;index&q;:&q;4&q;},{&q;id&q;:&q;写在最后&q;,&q;title&q;:&q;写在最后&q;,&q;index&q;:&q;5&q;}],&q;reward&q;:true,&q;copyright&q;:{&q;author&q;:&q;Birch&q;,&q;license&q;:&q;Attribution-NonCommercial-NoDerivatives 4.0 International(&l;a href=\&q;https://creativecommons.org/licenses/by-nc-nd/4.0/\&q; rel=\\\&q;external nofollow\\\&q; target=\\\&q;_blank\\\&q;&g;CC BY-NC-ND 4.0&l;/a&g;)&q;,&q;updated&q;:&q;December 14, 2020&q;},&q;reading_time&q;:&q;522 words in 3 min&q;}}</script></head>
 <body lang="en"><!-- hexo injector body_begin start --><is-a class="φh" ng-version="12.1.0"><is-k class="φcu"><div class="φdg"><section class="φdh"><header class="φcv"><i class="φda"></i><!----><!----><img width="160" draggable="false" class="φcx φcw" src="https://wardzhou.art/img/avatar.jpeg" alt="Birch" title="Birch"><!----><a href="" class="φcz">Birch</a><p class="φcy">&gt; </p></header><div class="φdl"><a routerlink="/archives" class="φdm" href="/archives"><span>122</span><span>Archives</span></a><a class="φdm" href="/categories/Academic"><span>15</span><span>Categories</span></a><!----><a routerlink="/tags" class="φdm" href="/tags"><span>71</span><span>Tags</span></a><!----></div><!----><nav class="φdi"><a class="φdj" href="/">🏠 Home</a><!----><!----><!----><a class="φdj" href="/search">🔍 Search</a><!----><!----><!----><a class="φdj" href="/resource">🧭 Resource</a><!----><!----><!----><a class="φdj" href="/about">🌈 About</a><!----><!----><!----><!----></nav><!----><div issnippet="" class="φb"> 
  
@@ -145,80 +129,6 @@
 <link href="custom/clipboard.css" rel="stylesheet">
 </div><div issnippet="" class="φb">
 </div><!----></div><!----></article><footer class="φex"><div class="φfc"><is-l class="φdo"><a class="φdp" href="/tags/Hexo">Hexo</a></is-l><is-l class="φdo"><a class="φdp" href="/tags/%E5%8D%87%E7%BA%A7">升级</a></is-l><is-l class="φdo"><a class="φdp" href="/tags/%E5%8D%9A%E5%AE%A2">博客</a></is-l><!----></div><!----><div class="φey"><a class="φez φfb" href="/2020/01/06/PromisesChapter1">Promises第一章</a><!----><a class="φez φfa" href="/2019/12/30/%E5%B0%8F%E4%B8%96%E7%95%8C%E7%9A%84%E7%AE%A1%E7%90%86%E8%80%85">小世界的管理者</a><!----></div><!----></footer><is-d class="φt"><div issnippet=""><div id="vcomment"></div> 
-</div><!----></is-d><!----><!----><!----></is-r><!----></main><!----></div></div></div><is-f class="φz"><div class="φbi"><span class="φa iκ-up"></span><span class="φa iκ-down"></span><!----><span class="φa iκ-toc"></span><!----><span class="φa iκ-search"></span><!----></div><div class="φbb φbc"><svg class="φbh"><defs><filter id="dp"><feGaussianBlur in="SourceGraphic" stdDeviation="2"></feGaussianBlur></filter></defs><circle filter="url(#dp)" fill="rgba(0,0,0,.3)" cx="50%" cy="52%" r="44%"></circle><circle cx="50%" cy="50%" r="44%" class="φbd"></circle><circle cx="50%" cy="50%" r="48%" class="φbg" stroke-dasharray="0% 314.15926%"></circle><!----><g class="φbe"><circle r=".2rem" cx="0" cy="-.8rem"></circle><circle r=".2rem"></circle><circle r=".2rem" cx="0" cy=".8rem"></circle></g><!----></svg></div></is-f><is-m class="φdq"><div class="φds φdt"><a class="φdv"><span class="φdx">1 </span><!----><span class="φdy">准备工作</span></a><!----></div><div class="φds φdt"><a class="φdv"><span class="φdx">2 </span><!----><span class="φdy">更新Hexo</span></a><!----></div><div class="φds φdt"><a class="φdv"><span class="φdx">3 </span><!----><span class="φdy">迁移文件</span></a><!----></div><div class="φds φdt"><a class="φdv"><span class="φdx">4 </span><!----><span class="φdy">部署</span></a><!----></div><div class="φds φdt"><a class="φdv"><span class="φdx">5 </span><!----><span class="φdy">写在最后</span></a><!----></div><!----></is-m><!----><!----></is-a><!-- hexo injector body_begin end --><!-- hexo injector body_end start --><script>
-(function() {
-  // --- FEATURE 1: SYSTEM DARK MODE SYNC ---
-  const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
-  
-  function syncTheme(e) {
-    const systemIsDark = e.matches;
-    // Check for 'theme-dark' class on HTML or Body (Standard Hexo Inside pattern)
-    const domIsDark = document.documentElement.classList.contains('theme-dark') ||
-                      document.body.classList.contains('theme-dark');
-    
-    // Attempt to find the theme toggle button to simulate a user action
-    // We look for common identifiers used in the theme
-    const toggleBtn = document.querySelector('.function-toggle') ||
-                      document.querySelector('.sidebar-toggle') ||
-                      document.querySelector('.navbar-toggle');
-    
-    if (systemIsDark !== domIsDark) {
-      // State mismatch detected
-      if (toggleBtn) {
-        console.log('WardZhou.art: Syncing theme via toggle button.');
-        toggleBtn.click();
-      } else {
-        // Fallback: Manually manipulate class if button is hidden/not found
-        console.log('WardZhou.art: Syncing theme via class manipulation.');
-        if (systemIsDark) {
-            document.documentElement.classList.add('theme-dark');
-            document.body.classList.add('theme-dark');
-        } else {
-            document.documentElement.classList.remove('theme-dark');
-            document.body.classList.remove('theme-dark');
-        }
-      }
-    }
-  }
-
-  // --- FEATURE 2: SIDEBAR AUTO-EXPAND ---
-  function initSidebar() {
-      // Logic: Only expand on Desktop (>1024px) to preserve Mobile UX
-      if (window.innerWidth < 1024) return;
-
-      // Session Guard: Uncomment the next line if you only want this once per session
-      // if (sessionStorage.getItem('sidebar_opened')) return;
-
-      const sidebar = document.querySelector('aside.sidebar') ||
-                      document.querySelector('.sidebar');
-      const toggle = document.querySelector('.sidebar-toggle') ||
-                     document.querySelector('.navbar-toggle');
-      
-      // Heuristic: If sidebar width is minimal, it is likely collapsed
-      const isCollapsed = sidebar && sidebar.getBoundingClientRect().width < 100;
-      
-      if (isCollapsed && toggle) {
-          console.log('WardZhou.art: Auto-expanding sidebar.');
-          toggle.click();
-          // Mark session as initialized
-          sessionStorage.setItem('sidebar_opened', 'true');
-      }
-  }
-
-  // --- ORCHESTRATION ---
-  window.addEventListener('load', () => {
-    // 1. Run Theme Sync immediately
-    syncTheme(darkModeQuery);
-    
-    // 2. Run Sidebar Logic with a slight delay to allow SPA framework (Angular) to hydrate
-    // The "Inside" theme may load content asynchronously
-    setTimeout(initSidebar, 800);
-  });
-  
-  // 3. Attach Listener for real-time OS theme changes
-  darkModeQuery.addEventListener('change', syncTheme);
-})();
-</script>
-<script src="/runtime.1ed960b0635ea0669f87.js"></script><script src="/polyfills.b7bf56fc45f931a8b83e.js"></script><script src="/main.543c891b4aad158701f3.js"></script><!-- hexo injector body_end end -->
+</div><!----></is-d><!----><!----><!----></is-r><!----></main><!----></div></div></div><is-f class="φz"><div class="φbi"><span class="φa iκ-up"></span><span class="φa iκ-down"></span><!----><span class="φa iκ-toc"></span><!----><span class="φa iκ-search"></span><!----></div><div class="φbb φbc"><svg class="φbh"><defs><filter id="dp"><feGaussianBlur in="SourceGraphic" stdDeviation="2"></feGaussianBlur></filter></defs><circle filter="url(#dp)" fill="rgba(0,0,0,.3)" cx="50%" cy="52%" r="44%"></circle><circle cx="50%" cy="50%" r="44%" class="φbd"></circle><circle cx="50%" cy="50%" r="48%" class="φbg" stroke-dasharray="0% 314.15926%"></circle><!----><g class="φbe"><circle r=".2rem" cx="0" cy="-.8rem"></circle><circle r=".2rem"></circle><circle r=".2rem" cx="0" cy=".8rem"></circle></g><!----></svg></div></is-f><is-m class="φdq"><div class="φds φdt"><a class="φdv"><span class="φdx">1 </span><!----><span class="φdy">准备工作</span></a><!----></div><div class="φds φdt"><a class="φdv"><span class="φdx">2 </span><!----><span class="φdy">更新Hexo</span></a><!----></div><div class="φds φdt"><a class="φdv"><span class="φdx">3 </span><!----><span class="φdy">迁移文件</span></a><!----></div><div class="φds φdt"><a class="φdv"><span class="φdx">4 </span><!----><span class="φdy">部署</span></a><!----></div><div class="φds φdt"><a class="φdv"><span class="φdx">5 </span><!----><span class="φdy">写在最后</span></a><!----></div><!----></is-m><!----><!----></is-a><!-- hexo injector body_begin end --><!-- hexo injector body_end start --><script src="/runtime.1ed960b0635ea0669f87.js"></script><script src="/polyfills.b7bf56fc45f931a8b83e.js"></script><script src="/main.543c891b4aad158701f3.js"></script><!-- hexo injector body_end end -->
 
 </body></html>
